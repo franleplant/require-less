@@ -1,3 +1,5 @@
+//Use Gulp
+
 var b = require('browserify');
 var fs = require('fs');
 
@@ -8,6 +10,6 @@ var browserify_opts = {
 
 
 var bundler = b(browserify_opts)
-	.transform(require('../index')({dest: '../c.css'}))
+	.transform(require('../index.js')({dest: './c.css'}))
 	.bundle()
 	.pipe(fs.createWriteStream('./bundle.js'));
