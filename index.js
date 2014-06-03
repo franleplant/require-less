@@ -43,16 +43,16 @@ module.exports = function (opts) {
 
         paths.push( path.dirname(fileName) );
 
-        return through(
-            function (chunk) {
+ 		function write (chunk) {
                 buffer += chunk.toString();
-            },
-            function () {
-                less_str += buffer;
-                debounced_compile(less_str)
+        }
 
-                this.queue(null);
-            }
-        );
+        function end () {
+            less_str += buffer;
+            debounced_compile(less_str)
+
+            this.queue(null);
+        }
+        return through(write, end);
     }   
 };
