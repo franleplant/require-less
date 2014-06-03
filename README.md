@@ -9,10 +9,10 @@ Browserify transform to `require('file.less')`
 The rest of Css and Less Browserify transforms point
 to appending the CSS into the head as a Style element.
 
-I think that this approach is no good, and I was looking for
-a transform that does not create a `<style>` tag dynamically
-but to create a `compiled.css` bundle with all the `.less` files
-being called throughout the Browserify modules and its dependencies.
+
+This transform will generate a single separate file `compiled.css` that will
+contain the compiled content of all the `.less` files and their dependencies.
+
 
 So
 
