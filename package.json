@@ -9,7 +9,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "tape": "^2.13.2"
+    "tape": "^2.13.2",
+    "q": "^1.0.1"
   },
   "dependencies": {
     "gulp": "^3.7.0",

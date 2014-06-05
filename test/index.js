@@ -11,34 +11,50 @@ var bundle_css = './test/bundle.css';
 
 
 function clean_up () {
-	gulp.src([bundle_js, bundle_css], {read: false})
-        .pipe(clean());	
+	try {
+		fs.unlinkSync(bundle_js);
+		fs.unlinkSync(bundle_css);	
+	} catch (e) {
+		console.log('nothing to clean');
+	}
+
 }
 
 
 test('It should create bundle.js and bundle.css', function (t) {
-    t.plan(2);
+    t.plan(3);
+	clean_up();
 
-    var require_less = require('../index.js')({dest: bundle_css})
+
+	function browserify_test_cb(bundle) {
+		t.ok(  fs.existsSync(bundle_js) , 'bundle.js should exist');
+	}
+
+	function require_less_test_cb() {
+		t.ok(  fs.existsSync(bundle_css), 'bundle.css should exist');
+
+		var style_compiled = fs.readFileSync('./test/bundle.css', 'utf8');
+
+		t.notEqual( style_compiled.search( 'border: 2px solid black;' ), -1, 'bundle.css should contain the compiled content' );
+		
+		clean_up();
+	}
+	
+
 
 	var browserify_opts = {
 			entries: './test/src/index.js'
 		};
 
+    var require_less = require('../index.js')({
+    		dest: bundle_css, 
+    		cb: require_less_test_cb
+    	});
 
-	clean_up();
-
-	var bundler = b(browserify_opts)
+	b(browserify_opts)
 		.transform(require_less)
-		.bundle()
+		.bundle(browserify_test_cb)
 		.pipe(fs.createWriteStream(bundle_js));
-
-	fs.exists(bundle_js, function(exists) {
-		t.ok(  exists, 'bundle.js should exist');
-	});
-	fs.exists(bundle_css, function(exists) {
-		t.ok(  exists, 'bundle.css should exist');
-	});
 
 });
 

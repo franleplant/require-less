@@ -21,7 +21,9 @@ var debounced_compile = db(function compile(less_str) {
         });
 
         parser.parse(less_str, function(e, r) { 
-            fs.writeFile(options.dest || "./compiled.css", e ? e : r.toCSS(), function(err) {});  
+            fs.writeFile(options.dest || "./compiled.css", e ? e : r.toCSS(), function(err) {
+                options.cb();
+            });  
         });    
          
     }, 1000, false);
