@@ -15,16 +15,33 @@ var options;
 var db = require('just-debounce')
 var debounced_compile = db(function compile(less_str) {
 
-        var parser = new less.Parser({
-            paths: paths,
-            syncImport: true
-        });
 
-        parser.parse(less_str, function(e, r) { 
-            fs.writeFile(options.dest || "./compiled.css", e ? e : r.toCSS(), function(err) {
+        //Defaults
+        options.less_opts = options.less_opts || {};
+        options.less_opts.paths = paths;
+        options.less_opts.syncImport = true;
+
+
+        less.render(less_str, options.less_opts, function (err, css) {
+          if (err) {
+
+            // convert the keys so PluginError can read them
+            err.lineNumber = err.line;
+            err.fileName = err.filename;
+
+            // add a better error message
+            err.message = err.message + ' in file ' + err.fileName + ' line no. ' + err.lineNumber;
+
+            throw err.message;
+          } else {
+            fs.writeFile(options.dest || "./compiled.css", css, function(err) {
+                if (err) {
+                    throw "Cant save compiled css file";
+                }
                 options.cb();
-            });  
-        });    
+            }); 
+          }
+        });
          
     }, 1000, false);
 
@@ -33,7 +50,7 @@ var debounced_compile = db(function compile(less_str) {
 
 
 module.exports = function (opts) {
-    options = opts;
+    options = opts || {};
 
     return function (fileName) {
 
