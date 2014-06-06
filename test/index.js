@@ -112,7 +112,7 @@ test('It should allow piping the CSS stream', function (t) {
 
 
 	var rev = require('gulp-rev');
-	var source = require('vinyl-source-stream')
+	var source = require('vinyl-source-stream');
 
 	function browserify_test_cb(bundle) {
 		t.ok(  fs.existsSync(bundle_js) , 'bundle.js should exist');
