@@ -101,9 +101,6 @@ test('It should allow passing options to Less parser', function (t) {
 });
 
 
-var gulp = require('gulp');
-
-
 test('It should allow piping the CSS stream', function (t) {
     t.plan(3);
 	clean_up();

@@ -9,15 +9,20 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "tape": "^2.13.2",
-    "q": "^1.0.1",
+    "browserify": "^4.1.8",
     "callback-stream": "^1.0.2",
-    "gulp-rev": "^0.4.0",
+    "gulp": "^3.7.0",
+    "gulp-clean": "^0.3.0",
+    "gulp-rev": "^0.4.1",
+    "tape": "^2.13.2",
     "vinyl-source-stream": "^0.1.1"
   },
   "dependencies": {
     "gulp": "^3.7.0",
     "gulp-clean": "^0.3.0",
-    "stream": "0.0.1"
+    "just-debounce": "0.0.2",
+    "less": "^1.7.0",
+    "stream": "0.0.1",
+    "through": "^2.3.4"
   }
 }
