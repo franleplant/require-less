@@ -7,15 +7,6 @@ var compile_less = require('./src/compile_less');
 
 
 
-
-
-
-
-
-
-
-
-
 module.exports = function (opts) {
 
     var less_str = '';
