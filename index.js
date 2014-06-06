@@ -46,7 +46,8 @@ var debounced_compile = db(function compile(less_str) {
                 throw err.message;
             } else {
 
-                less_stream.push(css).push(null);
+                less_stream.push(css);
+                less_stream.push(null);
 
                 stream = less_stream.pipe(options.pipe[0]);
 
