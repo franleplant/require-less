@@ -1,6 +1,9 @@
 require-less
 ============
 
+[![Build Status](https://travis-ci.org/franleplant/require-less.svg?branch=master)](https://travis-ci.org/franleplant/require-less)
+
+
 **Work In Progress**
 
 Browserify transform to `require('file.less')`
