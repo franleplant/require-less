@@ -24,13 +24,16 @@ var debounced_compile = db(function compile(less_str) {
         var stream;
 
 
-        var through2 = require('through2');
-
-
         //Defaults
         options.less_opts = options.less_opts || {};
         options.less_opts.paths = paths;
         options.less_opts.syncImport = true;
+
+        //No op
+        if (!options.cb) {
+            options.cb = function () {};
+        }
+
 
 
         less.render(less_str, options.less_opts, function (err, css) {

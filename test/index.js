@@ -47,7 +47,6 @@ test('It should create bundle.js and bundle.css', function (t) {
 		};
 
     var require_less = require('../index.js')({
-    		dest: bundle_css, 
     		pipe: [fs.createWriteStream(bundle_css)],
     		cb: require_less_test_cb
     	});
@@ -87,7 +86,6 @@ test('It should allow passing options to Less parser', function (t) {
 		};
 
     var require_less = require('../index.js')({
-    		dest: bundle_css, 
     		cb: require_less_test_cb,
     		pipe: [fs.createWriteStream(bundle_css)],
     		less_opts: {
@@ -135,7 +133,6 @@ test('It should allow piping the CSS stream', function (t) {
 		};
 
     var require_less = require('../index.js')({
-    		dest: bundle_css, 
     		cb: require_less_test_cb,
     		pipe: [
     			source('bundle.css'), 
