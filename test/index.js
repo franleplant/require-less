@@ -88,9 +88,7 @@ test('It should allow passing options to Less parser', function (t) {
     var require_less = require('../index.js')({
     		cb: require_less_test_cb,
     		pipe: [fs.createWriteStream(bundle_css)],
-    		less_opts: {
-    			compress:  true
-    		}
+    		compress:  true
     	});
 
 	b(browserify_opts)
