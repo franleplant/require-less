@@ -48,6 +48,7 @@ test('It should create bundle.js and bundle.css', function (t) {
 
     var require_less = require('../index.js')({
     		dest: bundle_css, 
+    		pipe: [fs.createWriteStream(bundle_css)],
     		cb: require_less_test_cb
     	});
 
@@ -88,6 +89,7 @@ test('It should allow passing options to Less parser', function (t) {
     var require_less = require('../index.js')({
     		dest: bundle_css, 
     		cb: require_less_test_cb,
+    		pipe: [fs.createWriteStream(bundle_css)],
     		less_opts: {
     			compress:  true
     		}
@@ -101,11 +103,16 @@ test('It should allow passing options to Less parser', function (t) {
 });
 
 
-/*
+var gulp = require('gulp');
+
+
 test('It should allow piping the CSS stream', function (t) {
     t.plan(3);
 	clean_up();
 
+
+	var rev = require('gulp-rev');
+	var source = require('vinyl-source-stream')
 
 	function browserify_test_cb(bundle) {
 		t.ok(  fs.existsSync(bundle_js) , 'bundle.js should exist');
@@ -130,7 +137,12 @@ test('It should allow piping the CSS stream', function (t) {
     var require_less = require('../index.js')({
     		dest: bundle_css, 
     		cb: require_less_test_cb,
-    		pipe: []
+    		pipe: [
+    			source('bundle.css'), 
+/*    			rev(), 
+    			rev.manifest(),*/
+    			gulp.dest('./test')
+    		]
     	});
 
 	b(browserify_opts)
@@ -138,7 +150,7 @@ test('It should allow piping the CSS stream', function (t) {
 		.bundle(browserify_test_cb)
 		.pipe(fs.createWriteStream(bundle_js));
 
-});*/
+});
 
 
 

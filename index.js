@@ -16,6 +16,17 @@ var db = require('just-debounce')
 var debounced_compile = db(function compile(less_str) {
 
 
+
+
+        var callback = require('callback-stream');
+        var Readable = require('stream').Readable;
+        var less_stream = new Readable;
+        var stream;
+
+
+        var through2 = require('through2');
+
+
         //Defaults
         options.less_opts = options.less_opts || {};
         options.less_opts.paths = paths;
@@ -23,24 +34,37 @@ var debounced_compile = db(function compile(less_str) {
 
 
         less.render(less_str, options.less_opts, function (err, css) {
-          if (err) {
+            if (err) {
 
-            // convert the keys so PluginError can read them
-            err.lineNumber = err.line;
-            err.fileName = err.filename;
+                // convert the keys so PluginError can read them
+                err.lineNumber = err.line;
+                err.fileName = err.filename;
 
-            // add a better error message
-            err.message = err.message + ' in file ' + err.fileName + ' line no. ' + err.lineNumber;
+                // add a better error message
+                err.message = err.message + ' in file ' + err.fileName + ' line no. ' + err.lineNumber;
 
-            throw err.message;
-          } else {
-            fs.writeFile(options.dest || "./compiled.css", css, function(err) {
-                if (err) {
-                    throw "Cant save compiled css file";
-                }
-                options.cb();
-            }); 
-          }
+                throw err.message;
+            } else {
+
+                less_stream.push(css);
+                less_stream.push(null);
+
+                stream = less_stream.pipe(options.pipe[0]);
+
+                for (var i = 1; i < options.pipe.length; i++) {
+                    stream = stream.pipe(options.pipe[i]);
+                };
+
+
+                stream.on('finish', function () { 
+                    options.cb(); 
+                });
+
+                stream.on('end', function () { 
+                    options.cb(); 
+                });
+
+            }
         });
          
     }, 1000, false);

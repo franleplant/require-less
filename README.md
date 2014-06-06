@@ -42,3 +42,15 @@ Test it!
 npm test
 
 ```
+
+
+
+## Thanks to
+
+The following are links to sources of inspiration and conflict solving when I was
+working on this Transform. I have copied pieces of code from them so they are 
+contributors.
+
+- https://github.com/plus3network/gulp-less/
+- https://github.com/wilson428/node-lessify
+- https://github.com/davidguttman/cssify
