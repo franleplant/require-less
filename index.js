@@ -16,6 +16,8 @@ module.exports = function (opts) {
     opts.paths = [__dirname];
 
 
+    // it returns the actual browseribe fy transform but
+    // it needs to initialized and configured first
     return function (fileName) {
 
         // Process only css or less files
