@@ -1,28 +1,17 @@
 var fs = require('fs');
-var glob = require("glob");
 
+//Simple file sync remover func
 function clean_up () {
 	//Turn arguments into and array
 	var args = Array.prototype.slice.call(arguments);
 
 	try {
-
-		args.forEach(function (path) {
-			glob(path, function (err, file_names) {
-				if (err) {
-					console.log('Clean Helper Glob: ', err);
-					return;
-				}
-				file_names.forEach(function (path) {
-					fs.unlinkSync(path);
-				})
-					
-			});
+		args.forEach(function (file_name) {
+			fs.unlinkSync(file_name);
 		});
 	} catch (e) {
-		console.log(e);
+		console.log('Cant delete non existent file: ', e.path);
 	}
 }
-
 
 module.exports = clean_up;

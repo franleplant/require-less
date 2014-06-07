@@ -2,25 +2,17 @@ var test = require('tape');
 var b = require('browserify');
 var fs = require('fs');
 
+var entry_file = './test/fixtures/index.js';
 var bundle_js = './test/bundle.js';
 var bundle_css = './test/bundle.css';
 
-
-function clean_up () {
-	try {
-		fs.unlinkSync(bundle_js);
-		fs.unlinkSync(bundle_css);	
-	} catch (e) {
-		console.log('nothing to clean');
-	}
-
-}
-
+// Partially apply clean helper to suit the test needs
+var clean = require('./clean_helper').bind(null, bundle_js, bundle_css);
 
 
 test('It should allow passing options to Less parser', function (t) {
     t.plan(3);
-	clean_up();
+	clean();
 
 
 	function browserify_test(bundle) {
@@ -31,16 +23,14 @@ test('It should allow passing options to Less parser', function (t) {
 		t.ok(  fs.existsSync(bundle_css), 'bundle.css should exist');
 
 		var style_compiled = fs.readFileSync('./test/bundle.css', 'utf8');
-
 		t.notEqual( style_compiled.search( 'border:2px solid #000' ), -1, 'bundle.css should contain the compiled content' );
 		
-		clean_up();
+		clean();
 	}
 	
 
-
 	var browserify_opts = {
-			entries: './test/fixtures/index.js'
+			entries: entry_file
 		};
 
     var require_less = require('../index.js')({
