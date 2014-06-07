@@ -4,6 +4,7 @@ var b = require('browserify');
 var fs = require('fs');
 var gulp = require('gulp');
 var clean = require('gulp-clean');
+var gulp_buffer = require('gulp-buffer');
 
 
 var bundle_js = './test/bundle.js';
@@ -99,10 +100,15 @@ test('It should allow passing options to Less parser', function (t) {
 });
 
 
-test('It should allow piping the CSS stream', function (t) {
-    t.plan(3);
-	clean_up();
+var clean_helper = require('./clean_helper');
 
+test('It should allow piping the CSS stream', function (t) {
+    t.plan(2);
+
+
+    var clean = clean_helper.bind(null, bundle_js, './test/rev-manifest.json', './test/bundle*.css');
+
+    clean();
 
 	var rev = require('gulp-rev');
 	var source = require('vinyl-source-stream');
@@ -112,13 +118,8 @@ test('It should allow piping the CSS stream', function (t) {
 	}
 
 	function require_less_test_cb() {
-		t.ok(  fs.existsSync(bundle_css), 'bundle.css should exist');
-
-		var style_compiled = fs.readFileSync('./test/bundle.css', 'utf8');
-
-		t.notEqual( style_compiled.search( 'border: 2px solid black;' ), -1, 'bundle.css should contain the compiled content' );
-		
-		clean_up();
+		t.ok(  fs.existsSync('./test/rev-manifest.json') , 'manifest.json should be created');
+		clean();
 	}
 	
 
@@ -131,8 +132,9 @@ test('It should allow piping the CSS stream', function (t) {
     		cb: require_less_test_cb,
     		pipe: [
     			source('bundle.css'), 
-/*    			rev(), 
-    			rev.manifest(),*/
+    			gulp_buffer(),
+    			rev(), 
+    			rev.manifest(),
     			gulp.dest('./test')
     		]
     	});
