@@ -10,7 +10,7 @@ function clean_up () {
 			fs.unlinkSync(file_name);
 		});
 	} catch (e) {
-		console.log('Cant delete non existent file: ', e.path);
+		console.log(e);
 	}
 }
 
