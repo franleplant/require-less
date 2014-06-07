@@ -1,6 +1,6 @@
 {
   "name": "require-less",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Browserify Transform to require less files",
   "keywords": [
     "browserify",
