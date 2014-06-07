@@ -11,7 +11,7 @@ var clean = require('./clean_helper').bind(null, bundle_js, bundle_css);
 
 
 test('It should allow passing options to Less parser', function (t) {
-    t.plan(3);
+    t.plan(4);
 	clean();
 
 
@@ -23,8 +23,8 @@ test('It should allow passing options to Less parser', function (t) {
 		t.ok(  fs.existsSync(bundle_css), 'bundle.css should exist');
 
 		var style_compiled = fs.readFileSync('./test/bundle.css', 'utf8');
-		t.notEqual( style_compiled.search( 'border:2px solid #000' ), -1, 'bundle.css should contain the compiled content' );
-		
+		t.notEqual( style_compiled.search( 'border:2px solid #000' ), -1, 'bundle.css should contain style2.less' );
+		t.notEqual( style_compiled.search( 'font-family:sans-serif;' ), -1, 'bundle.css should contain bootstrap source' );
 		clean();
 	}
 	
