@@ -1,12 +1,21 @@
 {
-  "name": "rcss",
-  "version": "0.0.0",
-  "description": "",
+  "name": "require-less",
+  "version": "0.0.4",
+  "description": "Require less files within your javascript files",
+  "keywords": [
+    "browserify",
+    "css",
+    "less",
+    "transform",
+    "browserify-transform",
+    "browser"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "node ./test/index.js"
   },
-  "author": "",
+  "author": "franleplant@gmail.com",
+  "repository": "https://github.com/franleplant/require-less",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^4.1.8",
@@ -24,5 +33,9 @@
     "less": "^1.7.0",
     "stream": "0.0.1",
     "through": "^2.3.4"
-  }
+  },
+  "files": [
+    "./index.js",
+    "./src"
+  ]
 }

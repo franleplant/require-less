@@ -11,8 +11,11 @@ and output the compiled css into a file.
 
 ### Whats different about this Browserify less transform?
 
-The rest of Css and Less Browserify transforms point
-to `head.appendChild('<style>' + your_css + '</style>')`.
+The rest of Css and Less Browserify transforms point to 
+
+```javascript
+head.appendChild('<style>' + your_css + '</style>');
+```
 
 
 This transform will generate a stream with your compiled css
@@ -132,7 +135,9 @@ cd path/to/repo/root
 npm test
 ```
 
+## Notes
 
+- This transform will not work when setting `browserify.transform` in `package.json` due to its nature
 
 
 ## Thanks to
