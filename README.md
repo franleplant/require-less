@@ -12,11 +12,12 @@ and output the compiled css into a file.
 ### Whats different about this Browserify less transform?
 
 The rest of Css and Less Browserify transforms point
-to appending the CSS into the head as a Style element.
+to `head.appendChild('<style>' + your_css + '</style>')`.
 
 
-This transform will generate a single separate file `compiled.css` that will
-contain the compiled content of all the `.less` files and their dependencies.
+This transform will generate a stream with your compiled css
+and an interface to piping transforms into it so you can do 
+what every you like.
 
 
 #### Example
@@ -47,7 +48,7 @@ body {
 
 #### What require-less can do for you
 
-- `require('file.css');` and `require('file.less');` will work! 
+- `require('file.css')` and `require('file.less')` will work! 
 - Works with both `css` and `less`
 - You still have complete less and css functionality like `@import` 
 - It will create a stream that contains the compiled css and then you can do whatever you like with it! (see `pipe` method)
@@ -57,19 +58,21 @@ body {
 
 # API
 
-## `require_less = require('require_less')(options)`
+## `require('require_less')(options)`
 
 It will return a transform function ready to be used by browserify.
 
 ```javascript
+var require_less = require('require_less')(options)
+
 browserify(opts).transform(require_less);
 ```
 
 
 ## `options`
 
-Options will host all the regular `less parser` options plus some
-useful attributes as detailed below.
+Options will host all the regular [less parser](http://lesscss.org/usage/#command-line-usage) 
+options plus some useful attributes as detailed below.
 
 ## `options.pipe`
 
@@ -102,20 +105,23 @@ var require_less = require('require-less')({
 
 In the preceding example the `vinyl-source-stream` library is being used to turn 
 the regular stream to something gulp can handle and then just running a very 
-common and regular gulp task. 
+common and regular gulp task.
 
-This shows that with this pipe attribute you will be able to do what you regularly 
+This is my recommended way of outputing the compiled css into a file, but you can also use
+`fs.createWriteStream('path/compiled.css')` and of course any other. 
+
+This shows that with the pipe attribute you will be able to do what you regularly 
 will do with your css stream, so it should have no cap to the things you can accomplish.
 
 
-In the test suit there is a test using a 2 gulp plugins: `gulp-rev` and ``gulp-buffer`. More about this soon.
+In the test suit there is a test using a 2 gulp plugins: `gulp-rev` and ``gulp-buffer`. 
+More about this soon.
 
 ## `options.cb`
 
 Provide a callback that will be executed at the end of the stream transform process.
 
 
-------
 
 ## Test it!
 
