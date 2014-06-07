@@ -1,7 +1,7 @@
 {
   "name": "require-less",
   "version": "0.0.4",
-  "description": "Require less files within your javascript files",
+  "description": "Browserify Transform to require less files",
   "keywords": [
     "browserify",
     "css",
