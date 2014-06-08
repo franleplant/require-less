@@ -58,6 +58,35 @@ body {
 
 
 
+## Example
+
+This is my recommended way of outputing the compiled css into a file, but you can also use
+`fs.createWriteStream('path/compiled.css')` and of course any other analogues. 
+
+
+```javascript
+var gulp = require('gulp');
+var source = require('vinyl-source-stream');
+
+
+var require_less = require('require-less')({
+		pipe: [
+			source('bundle.css'), 
+			gulp.dest('./test')
+		]
+	});
+```
+
+
+In the preceding example the `vinyl-source-stream` library is being used to turn 
+the regular stream to something gulp can handle.
+
+
+This illustrates that you can use the pipe attribute to pipe any stream transform
+providing complete freedom for what you want to do.
+
+`test/test_case_3.js` is a test using a 2 gulp plugins: `gulp-rev` and `gulp-buffer`. 
+
 
 # API
 
@@ -68,8 +97,10 @@ It will return a transform function ready to be used by browserify.
 ```javascript
 var require_less = require('require_less')(options)
 
-browserify(opts).transform(require_less);
+browserify(browserify_opts).transform(require_less);
 ```
+
+> `browserify_opts` its just regular browserify opts
 
 
 ## `options`
@@ -91,38 +122,11 @@ css_stream.pipe(pipe[0])
 	.pipe(pipe[n]);
 ```
 
-Example
-```javascript
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
-
-
-var require_less = require('require-less')({
-		pipe: [
-			source('bundle.css'), 
-			gulp.dest('./test')
-		]
-	});
-```
-
-
-In the preceding example the `vinyl-source-stream` library is being used to turn 
-the regular stream to something gulp can handle and then just running a very 
-common and regular gulp task.
-
-This is my recommended way of outputing the compiled css into a file, but you can also use
-`fs.createWriteStream('path/compiled.css')` and of course any other. 
-
-This shows that with the pipe attribute you will be able to do what you regularly 
-will do with your css stream, so it should have no cap to the things you can accomplish.
-
-
-In the test suit there is a test using a 2 gulp plugins: `gulp-rev` and ``gulp-buffer`. 
-More about this soon.
-
 ## `options.cb`
 
 Provide a callback that will be executed at the end of the stream transform process.
+
+
 
 
 
