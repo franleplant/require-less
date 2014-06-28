@@ -14,7 +14,8 @@ and output the compiled css into a file.
 The rest of Css and Less Browserify transforms point to 
 
 ```javascript
-head.appendChild('<style>' + your_css + '</style>');
+//This is NOT the require-less behavior, please continue reading
+head.appendChild('<style>' + your_css + '</style>'); 
 ```
 
 
