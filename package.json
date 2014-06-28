@@ -1,6 +1,6 @@
 {
   "name": "require-less",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Browserify Transform to require less files",
   "keywords": [
     "browserify",
@@ -27,7 +27,7 @@
     "tape": "^2.13.2",
     "vinyl-source-stream": "^0.1.1"
   },
-  "dependencies": {  
+  "dependencies": {
     "callback-stream": "^1.0.2",
     "just-debounce": "0.0.2",
     "less": "^1.7.0",
