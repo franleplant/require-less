@@ -141,7 +141,8 @@ npm test
 
 ## Notes
 
-- This transform will not work when setting `browserify.transform` in `package.json` due to its nature
+- This transform will not work when setting `browserify.transform` in `package.json` due to its nature.
+- This transform does not work with Watchify yet, pull request welcome.
 
 
 ## Thanks to
