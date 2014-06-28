@@ -27,6 +27,9 @@ var debounced_compile = db(function compile(less_str, options) {
             options.cb = function () {};
         }
 
+        //Prevent the callback function to be called twice
+        //TODO: improve this
+        var cb_has_been_called = false;
 
 
         less.render(less_str, options, function (err, css) {
@@ -56,11 +59,18 @@ var debounced_compile = db(function compile(less_str, options) {
                 // it fires end and sometimes it fires finish
                 // I should go deeper into understanding why.
                 stream.on('finish', function () { 
-                    options.cb(); 
+                    if ( !cb_has_been_called ){
+                        options.cb();
+                        //Make sure that this cb is called only once
+                        cb_has_been_called = true;                       
+                    }
                 });
 
                 stream.on('end', function () { 
-                    options.cb(); 
+                    if ( !cb_has_been_called ){
+                        options.cb();
+                        cb_has_been_called = true;                       
+                    }
                 });
 
             }
