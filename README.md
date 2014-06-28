@@ -23,8 +23,11 @@ This transform will generate a stream with your compiled css
 and an interface to piping transforms into it so you can do 
 what every you like.
 
+:arrow_right:    `require-less({...})` is actually a **transform factory** that when executed returns
+a transform that can be used by browserify.
 
-#### Example
+
+#### Example behavior
 
 ```javascript
 // index.js
