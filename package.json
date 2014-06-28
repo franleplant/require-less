@@ -18,7 +18,7 @@
   "repository": "https://github.com/franleplant/require-less",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^4.1.8",
+    "browserify": "^4.2.0",
     "glob": "^4.0.2",
     "gulp": "^3.7.0",
     "gulp-buffer": "0.0.2",
@@ -27,11 +27,11 @@
     "tape": "^2.13.2",
     "vinyl-source-stream": "^0.1.1"
   },
-  "dependencies": {
+  "dependencies": {  
+    "callback-stream": "^1.0.2",
     "just-debounce": "0.0.2",
     "less": "^1.7.0",
     "stream": "0.0.1",
-    "through": "^2.3.4",
-    "callback-stream": "^1.0.2"
+    "through": "^2.3.4"
   }
 }
